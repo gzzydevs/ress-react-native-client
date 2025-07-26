@@ -1,18 +1,30 @@
 {
-  "name": "RessJSReactNativeClient",
+  "name": "ress-react-native-client",
   "version": "0.0.1",
   "private": true,
   "scripts": {
     "android": "react-native run-android",
+    "android:build": "cd android && ./gradlew assembleDebug",
+    "android:clean": "cd android && ./gradlew clean",
+    "android:install": "npm run android:clean && npm run pods:install && npm run android",
     "ios": "react-native run-ios",
+    "ios:build": "npm run pods:install && react-native run-ios",
+    "ios:release": "react-native run-ios --configuration Release",
+    "ios:clean": "cd ios && xcodebuild clean",
+    "pods:install": "cd ios && pod install",
+    "pods:update": "cd ios && pod update",
     "lint": "eslint .",
     "start": "react-native start",
-    "test": "jest"
+    "start:reset": "react-native start --reset-cache",
+    "test": "jest",
+    "clean": "npm run ios:clean && npm run android:clean && npm run start:reset",
+    "dev:setup": "npm install && npm run pods:install"
   },
   "dependencies": {
+    "@react-native/new-app-screen": "0.80.1",
     "react": "19.1.0",
     "react-native": "0.80.1",
-    "@react-native/new-app-screen": "0.80.1"
+    "react-native-webview": "^13.15.0"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
