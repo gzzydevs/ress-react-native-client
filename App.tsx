@@ -15,7 +15,7 @@ import RNShake from 'react-native-shake';
 import LoginScreen from './src/screens/LoginScreen';
 import HomeScreen from './src/screens/HomeScreen';
 import WebViewScreen from './src/screens/WebViewScreen';
-import DeveloperModeScreen from './src/screens/developer/DeveloperModeScreen';
+import DeveloperModeScreen from './src/screens/DeveloperModeScreen';
 
 // Import navigation types and config
 import type { RootStackParamList } from './src/types/navigation';
