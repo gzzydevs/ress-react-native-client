@@ -4,12 +4,7 @@
 
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
-
-type RootStackParamList = {
-  Login: undefined;
-  Home: undefined;
-  WebView: { url?: string };
-};
+import type { RootStackParamList } from '../../types/navigation';
 
 type HomeScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Home'>;
 
@@ -23,11 +18,11 @@ interface NavigationOption {
 export const useHomeScreen = () => {
   const navigation = useNavigation<HomeScreenNavigationProp>();
 
-  const navigateToWebView = (path: string) => {
+  const navigateToWebView = (path: string): void => {
     navigation.navigate('WebView', { url: path });
   };
 
-  const navigateToLogin = () => {
+  const navigateToLogin = (): void => {
     navigation.navigate('Login');
   };
 

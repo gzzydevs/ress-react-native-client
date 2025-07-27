@@ -6,20 +6,27 @@ import { useState } from 'react';
 import { Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import type { RootStackParamList } from '../../types/navigation';
 
-type RootStackParamList = {
-  Login: undefined;
-  Home: undefined;
-  WebView: { url?: string };
-};
+type DevNavigationProp = NativeStackNavigationProp<RootStackParamList, keyof RootStackParamList>;
 
-type DevNavigationProp = NativeStackNavigationProp<RootStackParamList>;
+interface QuickAction {
+  title: string;
+  action: () => void;
+  color: string;
+}
+
+interface PushOption {
+  title: string;
+  description: string;
+  action: () => void;
+}
 
 export const useDevBottomBarLauncher = () => {
   const navigation = useNavigation<DevNavigationProp>();
-  const [showModal, setShowModal] = useState(false);
+  const [showModal, setShowModal] = useState<boolean>(false);
 
-  const quickActions = [
+  const quickActions: QuickAction[] = [
     {
       title: '🏠 Go to Home',
       action: () => navigation.navigate('Home'),
@@ -32,7 +39,7 @@ export const useDevBottomBarLauncher = () => {
     },
   ];
 
-  const pushOptions = [
+  const pushOptions: PushOption[] = [
     {
       title: '🔐 Login Screen',
       description: 'Push Login screen',
@@ -95,7 +102,7 @@ export const useDevBottomBarLauncher = () => {
       title: '⚙️ Developer Mode',
       description: 'Navigate to Developer Mode screen',
       action: () => {
-        navigation.navigate('DeveloperMode' as any);
+        navigation.navigate('DeveloperMode');
         setShowModal(false);
       },
     },

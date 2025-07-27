@@ -6,21 +6,16 @@ import { useState } from 'react';
 import { Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
-
-type RootStackParamList = {
-  Login: undefined;
-  Home: undefined;
-  WebView: { url?: string };
-};
+import type { RootStackParamList } from '../../types/navigation';
 
 type LoginScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Login'>;
 
 export const useLoginScreen = () => {
   const navigation = useNavigation<LoginScreenNavigationProp>();
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
 
-  const handleLogin = () => {
+  const handleLogin = (): void => {
     if (username.trim() === '' || password.trim() === '') {
       Alert.alert('Error', 'Por favor ingresa usuario y contraseña');
       return;
@@ -39,7 +34,7 @@ export const useLoginScreen = () => {
     );
   };
 
-  const goToWebView = () => {
+  const goToWebView = (): void => {
     navigation.navigate('WebView', { url: 'pokedex' });
   };
 

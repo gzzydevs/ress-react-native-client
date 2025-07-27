@@ -3,9 +3,11 @@
  */
 
 import { useRoute, RouteProp } from '@react-navigation/native';
+import type { WebViewErrorEvent, WebViewMessageEvent } from 'react-native-webview/lib/WebViewTypes';
 import { WEBVIEW_BASE_PATH } from '../../config/linking';
+import type { RootStackParamList } from '../../types/navigation';
 
-type WebViewScreenRouteProp = RouteProp<{ params: { url?: string } }, 'params'>;
+type WebViewScreenRouteProp = RouteProp<RootStackParamList, 'WebView'>;
 
 export const useWebViewScreen = () => {
   const route = useRoute<WebViewScreenRouteProp>();
@@ -16,21 +18,22 @@ export const useWebViewScreen = () => {
   // Construct the full URL using basePath + path
   const webUrl = `${WEBVIEW_BASE_PATH}/${path}`;
 
-  const handleLoadStart = () => {
+  const handleLoadStart = (): void => {
     console.log(`WebView loading... URL: ${webUrl}`);
   };
 
-  const handleLoadEnd = () => {
+  const handleLoadEnd = (): void => {
     console.log(`WebView loaded! URL: ${webUrl}`);
   };
 
-  const handleError = (syntheticEvent: any) => {
+  const handleError = (syntheticEvent: WebViewErrorEvent): void => {
     const { nativeEvent } = syntheticEvent;
     console.warn('WebView error: ', nativeEvent);
   };
 
-  const handleMessage = (event: any) => {
-    console.log('Message from WebView:', event.nativeEvent.data);
+  const handleMessage = (event: WebViewMessageEvent): void => {
+    const { nativeEvent } = event;
+    console.log('Message from WebView:', nativeEvent.data);
   };
 
   return {
